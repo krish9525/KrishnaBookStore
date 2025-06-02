@@ -1208,12 +1208,12 @@ method="POST"
 <div class="footer-column">
 <h3>Categories</h3>
 <ul>
-<li><a href="#" data-category="business">Business</a></li>
-<li><a href="#" data-category="management">Management</a></li>
-<li><a href="#" data-category="law">Law</a></li>
-<li><a href="#" data-category="engineering">Engineering</a></li>
-<li><a href="#" data-category="medical">Medical</a></li>
-<li><a href="#" data-category="science">Science</a></li>
+<li><a href="#books" data-category="business">Business</a></li>
+<li><a href="#books" data-category="management">Management</a></li>
+<li><a href="#books" data-category="law">Law</a></li>
+<li><a href="#books" data-category="engineering">Engineering</a></li>
+<li><a href="#books" data-category="medical">Medical</a></li>
+<li><a href="#books" data-category="science">Science</a></li>
 </ul>
 </div>
 <div class="footer-column">
@@ -1239,6 +1239,34 @@ method="POST"
 <div class="toast" id="toast"></div>
 
 <script type="module" src="script.js"></script>
+<script type="module">
+// Add category filtering functionality
+document.querySelectorAll('[data-category]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const category = link.getAttribute('data-category');
+        
+        // Scroll to books section
+        document.querySelector('#books').scrollIntoView({ behavior: 'smooth' });
+        
+        // Filter books
+        document.querySelectorAll('.book-card').forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Update active category button
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-category') === category) {
+                btn.classList.add('active');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
-s
