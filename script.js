@@ -213,15 +213,19 @@ document.querySelectorAll('.book-card').forEach(card => {
 
 // Check if user is logged in
 onAuthStateChanged(auth, (user) => {
+    const currentPath = window.location.pathname;
+    const isLoginPage = currentPath.includes('login.html');
+    const isSignupPage = currentPath.includes('signup.html');
+    const isIndexPage = currentPath.includes('index.html') || currentPath.endsWith('/');
+
     if (user) {
         // User is signed in
-        if (window.location.pathname.includes('login.html') || 
-            window.location.pathname.includes('signup.html')) {
+        if (isLoginPage || isSignupPage) {
             window.location.href = 'index.html';
         }
     } else {
         // User is signed out
-        if (window.location.pathname.includes('index.html')) {
+        if (isIndexPage) {
             window.location.href = 'login.html';
         }
     }
